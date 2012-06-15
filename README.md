@@ -8,8 +8,8 @@ to learn Ember.
 
 You can use [Ember TODO][todo] at [http://remi.github.com/ember-todo][todo]
 
-Implemented Features
---------------------
+Implemented So Far
+------------------
 
  - `@ember` Use an Ember model (`Todo`)
  - `@ember` Use an Ember controller (`Todos.todosController as singleton`)
