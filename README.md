@@ -10,11 +10,11 @@ compare our work.
 Implemented So Far
 ------------------
 
+ - `@ember` Use an Ember model (`Todo`)
 
 Backlog (TODO)
 --------------
 
- - `@ember` Use an Ember model (`Todo`)
  - `@ember` Use an Ember controller (`Todos.todosController as singleton`)
  - `@ember` Use Ember views
  - `@ember` Use `{{action}}` to trigger functions on views on event
