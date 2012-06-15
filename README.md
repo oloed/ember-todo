@@ -1,11 +1,11 @@
 Ember TODO
 ==========
 
-[Ember TODO][todo] is just a sample mini web application that I created to learn [Ember.js][].
+[Ember TODO][todo] is a mini web application that I created to learn [Ember.js][].
 
  > **NOTE:** May only work in Google Chrome
 
-You can use [Ember TODO][todo] at **[http://remi.github.com/ember-todo][todo]**
+You can use [Ember TODO][todo] at: **[http://remi.github.com/ember-todo][todo]**
 
 Implemented So Far
 ------------------
