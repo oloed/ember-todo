@@ -3,8 +3,6 @@ Ember TODO
 
 [Ember TODO][todo] is a mini web application that I created to learn [Ember.js][].
 
- > **NOTE:** May only work in Google Chrome
-
 You can use [Ember TODO][todo] at: **[http://remi.github.com/ember-todo][todo]**
 
 Implemented So Far
@@ -33,7 +31,7 @@ Backlog (TODO)
  - `@ember` Use Ember.Router
  - `@ember` Use Ember Data
  - `@ember` Load application template into `<body>` (and use ApplicationView/Controller)
- - `@story` Add browser tests
+ - `@story` Add browser tests (chrome & firefox)
  - `@story` Filter TODOs (filter as you type)
  - `@story` Be able to have tabs of different named groups of TODOs
  - `@story` Add JavaScript tests
