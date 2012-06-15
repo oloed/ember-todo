@@ -7,6 +7,7 @@
     <script>
       window.Todos = Ember.Application.create();
 
+      // TODO Make this Todos.Todo.  Should be under main Ember app.
       window.Todo = Ember.Object.extend({
         description: ""
       });
@@ -129,6 +130,7 @@
         border: 1px dashed #ddd;
         margin-top: 5px;
         cursor: -webkit-grab;
+        cursor: -moz-grab;
       }
       #todos .active-target {
         background-color: #ddd;
