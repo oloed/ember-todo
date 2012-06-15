@@ -1,12 +1,18 @@
 Ember TODO
 ==========
 
-[Ember TODO][todo] is a mini web application that I created to learn [Ember.js][].
+This project was forked from [Remi's
+TODO](http://remi.github.com/ember-todo)
 
-You can use [Ember TODO][todo] at: **[http://remi.github.com/ember-todo][todo]**
+I want to reimplement the same features so we can later (eventually)
+compare our work.
 
 Implemented So Far
 ------------------
+
+
+Backlog (TODO)
+--------------
 
  - `@ember` Use an Ember model (`Todo`)
  - `@ember` Use an Ember controller (`Todos.todosController as singleton`)
@@ -22,10 +28,6 @@ Implemented So Far
  - `@story` As a User I should be able to prioritize Todos by dragging/dropping (*implemented with HTML5*)
  - `@story` As a User my Todos should be persisted across sessions (*implemented with localStorage*)
  - `@story` As a User I should be able to edit a Todo (in-place)
-
-Backlog (TODO)
---------------
-
  - `@ember` Port to use the latest ember.js (w/o new features)
  - `@ember` Refactor away from singleton controllers
  - `@ember` Use Ember.Router
@@ -37,4 +39,3 @@ Backlog (TODO)
  - `@story` Add JavaScript tests
 
 [ember.js]: http://emberjs.com
-[todo]: http://remi.github.com/ember-todo
