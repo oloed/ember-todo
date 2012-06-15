@@ -1,4 +1,6 @@
-Todo = Ember.Object.extend({
+window.App = Ember.Application.create()
+
+App.Todo = Ember.Object.extend({
   title: 'new Todo'
 });
 
