@@ -37,5 +37,7 @@ Backlog (TODO)
  - `@story` Filter TODOs (filter as you type)
  - `@story` Be able to have tabs of different named groups of TODOs
  - `@story` Add JavaScript tests
+ - `@story` add observers to models so you can have a timeline of what
+   recently changed
 
 [ember.js]: http://emberjs.com
