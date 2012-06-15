@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ember TODOs (playing with Ember.js)</title>
+    <script src="jquery.js"></script>
+    <script src="ember.js"></script>
+    <script>
+      window.Todos = Ember.Application.create();
+
+      window.Todo = Ember.Object.extend({
+        description: ""
+      });
+
+      Todo.reopenClass({
+        getSavedTodos: function() {
+          var saved = [];
+          var serialized = localStorage["todos"];
+          if (serialized) {
+            JSON.parse(serialized).forEach(function(item){
+              saved.push(Todo.create(item));
+            });
+          }
+          return saved;
+        },
+        saveAll: function() {
+          localStorage["todos"] = JSON.stringify(Todos.todosController.content); 
+          Todos.set("lastSaved", new Date());
+          console.log("saved");
+        }
+      });
+
+      Todos.todosController = Ember.ArrayProxy.create({
+        content: Todo.getSavedTodos(),
+        updated: false,
+        saveIfUpdates: function() {
+          if (this.get("unsavedUpdatesPresent")) {
+            this.set("unsavedUpdatesPresent", false);
+            Todo.saveAll();
+          }
+        },
+        todosChanged: function(){
+          this.set("unsavedUpdatesPresent", true);
+        }.observes("content.@each.description")
+      });
+
+      setInterval(function(){ Todos.todosController.saveIfUpdates() }, 1000);
+
+      Todos.AddTodoView = Ember.View.extend({
+        value: "",
+        add: function() {
+          var todo = Todo.create({ description: this.get("value") });
+          Todos.todosController.pushObject(todo);
+          this.set("value", "");
+          return false;
+        }
+      });
+
+      Todos.TodoItemView = Ember.View.extend({
+        tagName: "li",
+        editing: false,
+        todo: null,
+        doubleClick: function(){
+          this.set("editing", true);
+        },
+        stopEditing: function(){
+          this.set("editing", false);
+          return false;
+        },
+        delete: function(){
+          if (this.get("todo"))
+            Todos.todosController.removeObject(this.get("todo"));
+        },
+
+        // drag/drop implementation below here
+        attributeBindings: "draggable",
+        draggable: "true",
+        activeTarget: false,
+        dragStart: function(event) {
+          var dataTransfer = event.originalEvent.dataTransfer;
+          dataTransfer.setData("Text", this.get("elementId"));
+        },
+        dragEnter: function(){ this.set("activeTarget", true); return false; },
+        dragLeave: function(){ this.set("activeTarget", false); return false; },
+        dragOver: function(){ return false; },
+        drop: function(event) {
+          var sourceViewId = event.originalEvent.dataTransfer.getData("Text"),
+              sourceView = Ember.View.views[sourceViewId],
+              todo = sourceView.todo,
+              todos = Todos.todosController;
+
+          var targetIndex = todos.indexOf(this.todo);
+          todos.removeAt(todos.indexOf(todo));
+
+          if (targetIndex <= todos.content.length) // insert before target
+            todos.insertAt(targetIndex, todo);
+          else // dropped on last element, so insert after target
+            todos.insertAt(targetIndex + 1, todo)
+
+          this.set("activeTarget", false);
+          return false;
+        }
+      });
+    </script>
+    <style>
+      html, body {
+        background-color: #333;
+      }
+      #container {
+        font-size: 20px;
+        margin: auto;
+        width: 50%;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #eee;
+        padding: 10px 10px 20px 20px;
+        position: relative;
+      }
+      #container input {
+        font-size: 20px;
+      }
+      #container .last-saved {
+        font-size: 12px;
+        color: #bbb;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
+      #todos li {
+        border: 1px dashed #ddd;
+        margin-top: 5px;
+        cursor: -webkit-grab;
+      }
+      #todos .active-target {
+        background-color: #ddd;
+        padding: 5px 0;
+      }
+      #todos .delete {
+        color: red;
+        font-weight: bold;
+        font-size: 25px;
+        float: right;
+      }
+      form {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <script type="text/x-handlebars">
+        {{#if Todos.lastSaved }}
+          <span class="last-saved">Last saved: {{ Todos.lastSaved }}</span>
+        {{/if}}
+        <h1>TODOs</h1>
+        <ol id="todos">
+          {{#each Todos.todosController}}
+            {{#view Todos.TodoItemView todoBinding="this" classBinding="activeTarget"}}
+              {{#if editing}}
+                <form {{action "stopEditing" on="submit"}}>
+                  {{view Ember.TextField valueBinding="todo.description"}}
+                </form>
+              {{else}}
+                {{ todo.description }}
+              {{/if}}
+              <span class="delete" {{action "delete"}}>&times;</span>
+            {{/view}}
+          {{/each}}
+        </ol>
+        {{#view Todos.AddTodoView}}
+          <form {{action "add" on="submit"}}>
+            <label>
+              Add TODO:
+              {{view Ember.TextField valueBinding="value" placeholder="eg. Take out the trash"}}
+            </label>
+          </form>
+        {{/view}}
+      </script>
+    </div>
+  </body>
+</html>
