@@ -28,3 +28,4 @@ Backlog
  - `@feature` Be able to have tabs of different named groups of TODOs
 
 [ember.js]: http://emberjs.com
+[todo]: http://remi.github.com/ember-todo
